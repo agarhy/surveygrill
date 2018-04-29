@@ -1,0 +1,10 @@
+# dependencies
+/node_modules
+
+# testing
+/test
+
+#build
+/dist
+
+package-locj.json
