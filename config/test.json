@@ -1,0 +1,7 @@
+{
+    "port":5020,
+    "bodyLimit": "100kb",
+    "database":{
+        "url":"mongodb://localhost:27017/sg_test"
+    }
+}

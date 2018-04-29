@@ -1,10 +1,26 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import config from 'config';
+import ApiRoutes from './routes/api';
 
-const app = express();
-const port = process.env.PORT || 5000;
+let app = express();
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
+// middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({
+    limit : config.bodyLimit
+}));
+
+
+// api routes v1
+app.use('/v1', ApiRoutes);
+
+app.get('/', function(req, res) {
+    res.send('Hello! The API is at http://localhost:' + config.port + '/api');
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(config.port);
+
+console.log('SurveyGrill RESTfull API started on: '+ config.port);
+module.exports=app;
