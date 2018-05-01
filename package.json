@@ -4,7 +4,7 @@
   "description": "SurveyGrill amazing surveys builder",
   "main": "src",
   "scripts": {
-    "test": "mocha --timeout 1000 || true **/*.test.js ",
+    "test": "mocha --recursive test/unit-test/ --timeout 1000 || true  ",
     "test-watch": "nodemon --exec 'npm test'",
     "front": "cd front && npm start",
     "server": "export NODE_ENV=dev && nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
@@ -52,7 +52,8 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
-    "chai": "^4.1.2",
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
     "eslint": "^4.19.1",
     "expect": "^1.20.2",
     "mocha": "^3.0.0  ",
