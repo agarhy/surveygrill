@@ -1,5 +1,7 @@
 {
     "port":5000,
     "bodyLimit": "100kb",
-    "database":"mongodb://localhost:27017/sg"
+    "database":{
+        "url":"mongodb://localhost:27017/sg"
+    }
 }
