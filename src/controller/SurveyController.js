@@ -44,6 +44,44 @@ export default ({ config, db }) => {
     
     });
 
+    api.get('/:id', (req, res, next) => {
+        try{
+            if(!req.params.id)
+                return  res.status(404)
+
+            surveyService.getSurvey(req.params.id,(err,surveyObj) => {
+                
+                if(!surveyObj)
+                  return  res.status(404).json(surveyObj);            
+                
+                res.json(surveyObj);
+            });
+            
+        }catch(e){
+            next(e);
+        }
+    
+    });
+
+    api.put('/:id', (req, res, next) => {
+        try{
+            //console.log(req.body);
+            if(!req.params.id)
+                return  res.status(404)
+
+            surveyService.updateSurvey(req.params.id,req.body,(err,surveyObj) => {
+                //validate inputs
+                // id
+                // key:data
+                res.json({ message: 'record updated!', surveyObj });
+            });
+            
+        }catch(e){
+            next(e);
+        }
+    
+    });
+
     api.delete('/:id', (req, res, next) => {
         try{
             let id=req.params.id;

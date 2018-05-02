@@ -1,4 +1,5 @@
 import Survey from './SurveyModel'
+import { relative } from 'path';
 
 
     let listSurvey = (callback) => {
@@ -17,7 +18,11 @@ import Survey from './SurveyModel'
             callback(err);
         });
     }
-
+    let getSurvey = (id,callback) => {
+        Survey.findById(id,(err,resObj)=>{
+           callback(err,resObj);
+        });
+   }
     let removeSurvey = (id,callback) => {
          
         Survey.findByIdAndRemove(id).then((survey)=>{
@@ -25,28 +30,25 @@ import Survey from './SurveyModel'
         })
     }
 
-    // removeSurvey = Survey => (id) =>{
-    //     return Survey.remove({_id:id});
-    // }
 
-    // updateSurvey = Survey => (id,obj) =>{
-    //     Survey.findById(id, (err, survey)=>{
-    //         // survey={...obj};
-    //         return survey.save({});
-    //     })
-    // }
-// module.exports = Survey =>{
-//     return{
-//         listSurvey: listSurvey(Survey),
-//         addSurvey: addSurvey(Survey),
-//         removeSurvey: removeSurvey(Survey),
-//         updateSurvey: updateSurvey(Survey)
-//     }
-// }
+    let updateSurvey = (id,obj,callback) =>{
+        Survey.findById(id, (err, survey)=>{
+            if(err)
+                return callback(err);
+                
+            Object.assign(survey, obj).save((err, res) => {
+                if(err) 
+                    return callback(err);
 
+                callback(res)            
+            });
+        })
+    }
 
 module.exports = {
     listSurvey,
     addSurvey,
+    getSurvey,
+    updateSurvey,
     removeSurvey
 };
