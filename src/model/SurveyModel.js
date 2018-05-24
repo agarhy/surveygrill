@@ -31,7 +31,13 @@ const SurveySchema = new Schema ({
         type:Date,
         default:Date.now
     },
-    sections: [{type: Schema.Types.ObjectId, ref: 'Section'}]
+    _sections: [{type: Schema.Types.ObjectId, ref: 'Section'}]
 })
 
+// SurveySchema.statics.addSection = function (surveyId,sectionId, done) {
+//     this.update({_id:surveyId}, { $push: { _sections: sectionId } }, { multi: false }, function(a){
+//       console.log("addSection", a);
+//       done(a);
+//     });
+//   };
 module.exports = mongoose.model('Survey',SurveySchema);

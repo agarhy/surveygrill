@@ -11,7 +11,7 @@ const SectionSchema = new Schema({
     },
     order:{
         type:Number,
-        unique:true
+        //unique:true
     },
     special:{
         type:Boolean,
