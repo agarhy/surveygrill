@@ -1,14 +1,12 @@
 import Survey from './SurveyModel'
-import { relative } from 'path';
 
-
-    let listSurvey = (callback) => {
+const surveyService = {
+    listSurvey : (callback) => {
          Survey.find({},(err,resObj)=>{
             callback(err,resObj);
          });
-    }
-
-    let addSurvey = (title,callback) => {
+    },
+    addSurvey : (title,callback) => {
      
         // if (!title || title==undefined)
         //     callback(`title ${title}`); 
@@ -17,21 +15,19 @@ import { relative } from 'path';
         newSurvey.save((err)=>{
             callback(err);
         });
-    }
-    let getSurvey = (id,callback) => {
+    },
+    getSurvey : (id,callback) => {
         Survey.findById(id,(err,resObj)=>{
            callback(err,resObj);
         });
-   }
-    let removeSurvey = (id,callback) => {
+    },
+    removeSurvey : (id,callback) => {
          
         Survey.findByIdAndRemove(id).then((survey)=>{
             callback(survey);
         })
-    }
-
-
-    let updateSurvey = (id,obj,callback) =>{
+    },
+    updateSurvey : (id,obj,callback) =>{
         Survey.findById(id, (err, survey)=>{
             if(err)
                 return callback(err);
@@ -44,11 +40,5 @@ import { relative } from 'path';
             });
         })
     }
-
-module.exports = {
-    listSurvey,
-    addSurvey,
-    getSurvey,
-    updateSurvey,
-    removeSurvey
-};
+}
+export default surveyService;
