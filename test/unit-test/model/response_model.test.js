@@ -10,23 +10,31 @@ const chai = require('chai');
 const expect = require('chai').expect;
 const should = require('chai').should;
 
-const Response = require('../../../src/model/ResponseModel');
+const {Response} = require('../../../src/model/ResponseModel');
 const Question = require('../../../src/model/QuestionModel');
 
 describe("Response Model", () => {
-    let question;
-    beforeEach((done)=>{
-        question = new Question({
-            text: " What is the sea color ? ",
-            order: 1,
-            ResponseType: 'mcq'
+   
+    describe("Model CRUD - ",()=>{
+        let question;
+        beforeEach((done)=>{
+            
+            Response.remove({})
+            .then(()=>{
+                question = new Question({
+                    text: " What is the sea color ? ",
+                    order: 1,
+                    ResponseType: 'mcq'
+                })
+    
+                return question.save();
+                
+            })
+            .then(()=>{
+                done();
+            });
         })
 
-        question.save(()=>{
-            done();
-        });
-    })
-    describe("Model CRUD - ",()=>{
         it('should create new response',(done)=>{
 
             var response = new Response({
@@ -34,12 +42,12 @@ describe("Response Model", () => {
             })
             response.save(()=>{
                 Response.find({})
-                .then((survey)=>{
-                    expect(survey.length).to.be.equal(1);
+                .then((resp)=>{
+                    expect(resp.length).to.be.equal(1);
                     done();
                 })
             })
-            done();
-        })
-    })
+         
+        });
+    });
 })

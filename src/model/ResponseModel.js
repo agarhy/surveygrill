@@ -1,6 +1,10 @@
 import mongoose, { model } from 'mongoose';
 const Schema = mongoose.Schema;
 
+const ResponseOptionSchema = new Schema({
+    value: String
+});
+
 const ResponseSchema = new Schema({
     question:{ type:Schema.Types.ObjectId, ref:'Question' },
     options:[ ResponseOptionSchema ]
@@ -14,9 +18,7 @@ ResponseSchema.virtual('OptionsCount').get(function(){
 });
 
 
-const ResponseOptionSchema = new Schema({
-    value: String
-});
+
 
 module.exports =  { 
     Response:mongoose.model('Response',ResponseSchema),
