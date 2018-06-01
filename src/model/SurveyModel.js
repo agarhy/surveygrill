@@ -4,11 +4,13 @@ const Schema = mongoose.Schema;
 const SurveySchema = new Schema ({
     title:{
         type:String,
-        required:"Title is required"
+        required:"Title is required",
+        minlength: 5,
+        maxlength: 200
     },
-    questions_count:{
-        type:Number,
-        default:0
+    description:{
+        type: String,
+        maxlength: 500
     },
     status:{
         type:[{
@@ -17,27 +19,60 @@ const SurveySchema = new Schema ({
         }],
         default:['draft']
     },
-    descrption:{
-        type:String,
-    },
     slug:{
-        type:String
+        type:String,
+        minlength: 5,
+        maxlength: 200
     },
-    crated_at:{
+    updatedAt:{
         type:Date,
         default:Date.now
     },
-    updated_at:{
-        type:Date,
-        default:Date.now
-    },
-    _sections: [{type: Schema.Types.ObjectId, ref: 'Section'}]
+    sections: [{type: Schema.Types.ObjectId, ref: 'Section'}]
 })
 
-// SurveySchema.statics.addSection = function (surveyId,sectionId, done) {
-//     this.update({_id:surveyId}, { $push: { _sections: sectionId } }, { multi: false }, function(a){
-//       console.log("addSection", a);
-//       done(a);
-//     });
-//   };
+
+/**
+ * Set virtual property "SectionsCount"
+ */
+SurveySchema.virtual('SectionsCount').get(function(){
+    return this.sections.length;
+})
+/**
+ * Set virtual property "QuestionsCount"
+ */
+SurveySchema.virtual('QuestionsCount').get(function(){
+    //return Section.getQuestionsCount({});
+})
+/**
+ * Update updateAt date after save event
+ */
+SurveySchema.post('save', function(error, doc, next){
+  this.update({},{ $set: { updatedAt: new Date() } });
+  next();
+})
+
+/**
+ * Instance method for appending new sectionID to survey sections list
+ * @param String sectionId -  section Id to be added
+ * @param function done - callback function
+ */
+SurveySchema.methods.addSection = function (sectionId, done) {
+    this.update({_id:this._id}, { $push: { sections: sectionId } }, { multi: true }, function(res){
+        done(res);
+    });
+};
+
+/**
+ * Instance method for removing sectionID from survey sections list
+ * @param Array sectionIds - Array of sections Id's to be removed
+ * @param function done - callback function
+ */
+SurveySchema.methods.removeSections = function (sectionIds, done) {
+    this.update({_id:this._id}, { $pull: { sections: { $in: sectionIds } } }, { multi: true }, function(res){
+        done(res);
+    });
+};
+
+
 module.exports = mongoose.model('Survey',SurveySchema);
