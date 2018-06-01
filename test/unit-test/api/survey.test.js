@@ -17,7 +17,7 @@ let server=require('../../../src/index');
 chai.use(chaiHttp);
 
 
-describe('Server API', ()=>{
+xdescribe('Server API', ()=>{
     beforeEach( (done)=> {
         Survey.remove({}).then( () => done()).catch((e)=>done(e));
     });

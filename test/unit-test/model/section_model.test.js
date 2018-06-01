@@ -12,7 +12,7 @@ const should = require('chai').should;
 
 const Section = require('../../../src/model/SectionModel');
 
-describe("Section model", ()=>{
+xdescribe("Section model", ()=>{
     
 
     describe("Section model CRUD", ()=>{
@@ -106,6 +106,24 @@ describe("Section model", ()=>{
                  done();        
             });
         
+        })
+    });
+
+    describe('Virtual Types', ()=>{
+        it('QuestionsCount returns number of questions',(done)=>{
+            let id=new ObjectID();
+            const array= [id];
+            const _section = new Section({
+                title:'Virtual types section',
+                questions: array
+            });
+             
+            _section.save()
+                .then(()=> Section.findOne({_id:_section._id}))
+                .then((section) => {
+                    expect(section.QuestionsCount).to.be.equal(1);
+                    done();
+                })
         })
     });
 })

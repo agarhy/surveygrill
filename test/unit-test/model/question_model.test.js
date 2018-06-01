@@ -40,7 +40,7 @@ describe("Question model", ()=>{
 
         it("should save new Question",  (done)=>{
             const _question= new Question({text:'New Question'});
-            _question.save((err)=>{
+            _question.save(()=>{
                 Question.findOne().then((res)=>{
                     expect(res.text).to.be.equal('New Question');
                     done();         
