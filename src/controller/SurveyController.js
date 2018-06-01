@@ -3,8 +3,9 @@ import {ObjectID} from'mongodb';
 import { Router } from 'express';
 import bodyParser from 'body-parser';
 import Survey from './../model/SurveyModel';
-import surveyService from './../model/surveyService';
-
+import surveyService from './../service/surveyService';
+import Joi from 'joi';
+import Validator from '../middleware/joiValidator';
 
 export default ({ config, db }) => {
 
@@ -23,7 +24,11 @@ export default ({ config, db }) => {
     
     });
 
-    api.post('/', (req, res, next) => {
+    api.post('/', Validator.validate(
+        Joi.object().keys({
+            title: Joi.string().min(3).required(),       
+        })
+    ), (req, res, next) => {
         try{
             
             surveyService.addSurvey(

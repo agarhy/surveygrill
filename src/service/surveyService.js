@@ -1,4 +1,4 @@
-import Survey from './SurveyModel'
+import Survey from '../model/SurveyModel'
 
 const surveyService = {
     listSurvey : (callback) => {

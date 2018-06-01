@@ -3,7 +3,7 @@ import {ObjectID} from'mongodb';
 import { Router } from 'express';
 import bodyParser from 'body-parser';
 import Section from './../model/SectionModel';
-import sectionService from './../model/sectionService';
+import sectionService from './../service/sectionService';
 
 
 export default ({ config, db }) => {

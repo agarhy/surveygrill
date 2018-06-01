@@ -1,9 +1,6 @@
-import Section from './SectionModel'
-import Survey from './SurveyModel'
+import Section from '../model/SectionModel'
+import Survey from '../model/SurveyModel'
 import mongoose from 'mongoose';
-
-import { relative } from 'path';
-
 
     let listSection = (callback) => {
          Section.find({},(err,resObj)=>{
