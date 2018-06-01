@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 import express from 'express';
-import Survey from "./../controller/SurveyController"
-import Section from "./../controller/SectionController"
+import Survey from "./../controller/SurveyController";
+import Section from "./../controller/SectionController";
+import User from "./../controller/UserController";
 import config from 'config';
 import initDB from './../db';
 
@@ -17,8 +18,9 @@ initDB(db => {
     });
 
 
-    ApiRouter.use('/survey',Survey({config,db}))
-    ApiRouter.use('/section',Section({config,db}))
+    ApiRouter.use('/survey',Survey({config,db}));
+    ApiRouter.use('/section',Section({config,db}));
+    ApiRouter.use('/user',User({config,db}));
        
 });
   
