@@ -23,7 +23,7 @@ var validate = function (schema) {
                     details.push({message: d.message, path: d.path});
                 });
 
-                return next(new BadRequestError(details));
+                return res.status(500).json(details);
             }
 
             req.schema = schemaResult;
