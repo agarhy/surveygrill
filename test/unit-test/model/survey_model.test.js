@@ -12,7 +12,7 @@ const should = require('chai').should;
 
 const Survey = require('../../../src/model/SurveyModel');
 
-xdescribe("Survey model", ()=>{
+describe("Survey model", ()=>{
     beforeEach( (done)=> {
         Survey.remove({}).then( () => done()).catch((e)=>done(e));
     });

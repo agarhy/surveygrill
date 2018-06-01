@@ -1,43 +1,46 @@
 import Survey from '../model/SurveyModel'
 
 const surveyService = {
-    listSurvey : (callback) => {
-         Survey.find({},(err,resObj)=>{
-            callback(err,resObj);
-         });
-    },
-    addSurvey : (title,callback) => {
-     
-        // if (!title || title==undefined)
-        //     callback(`title ${title}`); 
-        
-        let newSurvey = new Survey({title});
-        newSurvey.save((err)=>{
-            callback(err);
-        });
-    },
-    getSurvey : (id,callback) => {
-        Survey.findById(id,(err,resObj)=>{
-           callback(err,resObj);
-        });
-    },
-    removeSurvey : (id,callback) => {
-         
-        Survey.findByIdAndRemove(id).then((survey)=>{
-            callback(survey);
+    listSurvey : (offset=0,limit=10) => {
+        return new Promise((resolve,reject) => {
+            
+            Survey.find({}).skip(offset).limit(limit)
+                .then((Obj)=> resolve(Obj))
+                .catch((err)=> reject(err));
         })
     },
-    updateSurvey : (id,obj,callback) =>{
-        Survey.findById(id, (err, survey)=>{
-            if(err)
-                return callback(err);
-                
-            Object.assign(survey, obj).save((err, res) => {
-                if(err) 
-                    return callback(err);
-
-                callback(res)            
-            });
+    addSurvey : (title) => {
+        return new Promise((resolve,reject) => {
+            let newSurvey = new Survey({title});
+            newSurvey.save()
+                .then((Obj)=> resolve(Obj._id))
+                .catch((err)=> reject(err));
+        })
+    },
+    getSurvey : (id) => {
+        return new Promise((resolve,reject) => {
+            Survey.findById(id)
+                .then((Obj)=> resolve(Obj))
+                .catch((err)=> reject(err));
+        })
+    },
+    removeSurvey : (id) => {
+        return new Promise((resolve,reject) => {
+            Survey.findByIdAndRemove(id)
+                .then((Obj)=> resolve(Obj))
+                .catch((err)=> reject(err));
+        })
+    },
+    updateSurvey : (id,NewObj,callback) =>{
+        return new Promise((resolve,reject) => {
+            Survey.findById(id)
+                .then((survey)=>{
+                    return Object.assign(survey, NewObj).save();
+                })
+                .then((UpdatedObj)=>{
+                    resolve(UpdatedObj)
+                })
+                .catch((err)=> reject(err));
         })
     }
 }
