@@ -57,9 +57,8 @@ SurveySchema.post('save', function(error, doc, next){
  * @param String sectionId -  section Id to be added
  * @param function done - callback function
  */
-SurveySchema.methods.addSection = function (sectionId, done) {
-    this.update({_id:this._id}, { $push: { sections: sectionId } }, { multi: true }, function(res){
-        done(res);
+SurveySchema.methods.addSection = function (sectionId) {
+    this.update( { $push: { sections: sectionId } }, { multi: false }, function(res){
     });
 };
 
@@ -68,9 +67,8 @@ SurveySchema.methods.addSection = function (sectionId, done) {
  * @param Array sectionIds - Array of sections Id's to be removed
  * @param function done - callback function
  */
-SurveySchema.methods.removeSections = function (sectionIds, done) {
-    this.update({_id:this._id}, { $pull: { sections: { $in: sectionIds } } }, { multi: true }, function(res){
-        done(res);
+SurveySchema.methods.removeSections = function (sectionIds) {
+    this.update( { $pull: { sections: { $in: sectionIds } } }, { multi: true }, function(res){
     });
 };
 

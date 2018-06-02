@@ -31,7 +31,7 @@ const surveyService = {
                 .catch((err)=> reject(err));
         })
     },
-    updateSurvey : (id,NewObj,callback) =>{
+    updateSurvey : (id,NewObj) =>{
         return new Promise((resolve,reject) => {
             Survey.findById(id)
                 .then((survey)=>{

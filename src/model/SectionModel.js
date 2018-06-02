@@ -5,7 +5,7 @@ const SectionSchema = new Schema({
     title:{
         type:String,
         required:"Title is required",
-        minlength: 5,
+        minlength: 3,
         maxlength: 200
     },
     descrption:{

@@ -12,7 +12,7 @@ const should = require('chai').should;
 
 const Section = require('../../../src/model/SectionModel');
 
-xdescribe("Section model", ()=>{
+describe("Section model", ()=>{
     
 
     describe("Section model CRUD", ()=>{

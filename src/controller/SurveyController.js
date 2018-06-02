@@ -19,7 +19,7 @@ export default ({ config, db }) => {
     ), (req, res, next) => {
         try{
             
-            surveyService.listSurvey(0,3)
+            surveyService.listSurvey(0,5)
             .then((surveyObj)=>{                
                 res.json(surveyObj);
             })
