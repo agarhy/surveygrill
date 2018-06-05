@@ -5,10 +5,10 @@
   "main": "src",
   "scripts": {
     "test": "mocha --recursive test/unit-test/ --timeout 1000 || true  ",
-    "test-watch": "nodemon --exec 'npm test'",
-    "front": "cd front && npm start",
+    "test-watch": "nodemon --exec 'npm test'",    
+    "angular": "cd angular-client && ng serve",
     "server": "export NODE_ENV=dev && nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run front\"",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run angular\"",
     "lint": "eslint src",
     "clean": "rm -rf dist",
     "build": "babel src -s -D -d dist --presets es2015,stage-0",
